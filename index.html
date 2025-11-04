@@ -5,37 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Май авто | Выездная химчистка</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Marck+Script&display=swap" rel="stylesheet">
-    
-    <!-- Мета-теги для PWA -->
-    <meta name="theme-color" content="#0a291e">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Май авто">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Библиотека для QR-кода -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Marck+Script&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
         
         :root {
-            --primary-light: #fffdfa;
-            --primary-dark: #0a291e;
-            --accent: #553922;
+            --primary: #2E8B57;
+            --primary-dark: #1e6b46;
+            --primary-light: #e8f5e9;
+            --accent: #FF6B35;
+            --text-dark: #2D3748;
+            --text-light: #718096;
+            --background: #FAFBFC;
+            --white: #FFFFFF;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.12);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, #4CAF50 100%);
         }
         
         body {
-            background-color: var(--primary-light);
-            color: #333;
+            background-color: var(--background);
+            color: var(--text-dark);
             line-height: 1.6;
+            padding-bottom: 100px;
         }
         
         .container {
@@ -46,362 +44,478 @@
         
         /* Header */
         header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a3d2d 100%);
-            color: white;
-            padding: 60px 0 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: "";
-            position: absolute;
+            background: var(--white);
+            padding: 15px 0;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,253,250,0.1)"/></svg>');
-            background-size: cover;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
-            position: relative;
-            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
-        .logo-image {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-        }
-        
-        .logo-image img {
-            max-width: 100%;
-            max-height: 100%;
+            color: white;
+            font-size: 1.2rem;
         }
         
         .logo h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
+            font-size: 1.6rem;
             font-weight: 700;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 5px;
         }
         
         .mai-text {
-            font-size: 3.5rem;
+            font-size: 1.6rem;
+            color: var(--primary);
         }
         
         .logo .auto-text {
             font-family: 'Marck Script', cursive;
-            font-size: 3rem;
+            font-size: 1.4rem;
             font-weight: 400;
-            color: #f8d7a4;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            transform: translateY(-2px);
-            letter-spacing: 1px;
+            color: var(--accent);
         }
         
-        .logo p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 20px;
-        }
-        
-        .header-buttons {
+        .header-contact {
             display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
         }
         
-        .header-btn {
-            background-color: var(--accent);
-            color: white;
+        .order-text {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        
+        .phone-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            background: var(--primary-light);
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+        
+        .vcard-icon {
+            background: var(--gradient);
             border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            border-radius: 50px;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+        }
+        
+        .vcard-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            z-index: 999;
+            width: auto;
+            min-width: 300px;
+            justify-content: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: bold;
-            display: inline-flex;
+            padding: 10px 15px;
+            border-radius: 15px;
+            flex: 1;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .nav-item i {
+            font-size: 1.3rem;
+        }
+        
+        .order-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+            transition: all 0.3s;
+            min-width: 140px;
+            justify-content: center;
         }
         
-        .header-btn:hover {
-            background-color: #6a4a2d;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .desktop-btn {
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .desktop-btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-        
-        .vcard-btn {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .vcard-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+        .order-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 139, 87, 0.5);
         }
         
         /* Main Content */
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 40px;
-            padding: 60px 0;
+            margin-top: 80px;
+            padding: 20px 0;
+            min-height: calc(100vh - 180px);
         }
         
-        /* Service Section */
-        .service-section {
-            margin-bottom: 50px;
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        /* My Cars Tab */
+        .cars-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .section-title {
-            color: var(--primary-dark);
+            color: var(--text-dark);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cars-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .car-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .car-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .car-card.need-cleaning::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 60px 60px 0;
+            border-color: transparent var(--accent) transparent transparent;
+        }
+        
+        .car-card.need-cleaning::after {
+            content: '⚠️';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+        
+        .car-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .car-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.8rem;
-            margin-bottom: 25px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .car-info {
+            flex: 1;
+            margin-left: 15px;
+            text-align: left;
+        }
+        
+        .car-model {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+        
+        .car-year {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .car-details {
+            background: var(--primary-light);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .car-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent);
-            display: inline-block;
+            border-bottom: 1px solid rgba(46, 139, 87, 0.1);
+        }
+        
+        .car-detail:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .car-status {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .cleaning-alert {
+            background: linear-gradient(135deg, #FFF3CD 0%, #FFEaaC 100%);
+            border: 1px solid #FFD351;
+            color: #856404;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .add-car-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px auto;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+        }
+        
+        .add-car-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46, 139, 87, 0.5);
+        }
+        
+        /* Description Tab */
+        .service-section {
+            margin-bottom: 40px;
         }
         
         .service-description {
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
         }
         
         .service-features {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .feature {
             display: flex;
             align-items: flex-start;
             margin-bottom: 15px;
+            padding: 15px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateX(5px);
+            background: var(--white);
+            box-shadow: var(--shadow);
         }
         
         .feature i {
-            color: var(--accent);
-            margin-right: 10px;
+            color: var(--primary);
+            margin-right: 15px;
             margin-top: 3px;
             flex-shrink: 0;
+            font-size: 1.2rem;
         }
         
-        .pricing {
-            background-color: white;
+        .pricing-info {
+            background: linear-gradient(135deg, var(--primary-light) 0%, #E1F5FE 100%);
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 1px solid rgba(46, 139, 87, 0.1);
         }
         
-        .price {
-            font-size: 2.5rem;
-            color: var(--primary-dark);
-            font-weight: 700;
-            margin: 15px 0;
+        /* Modal Windows */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
         }
         
-        .add-ons {
-            margin-top: 25px;
+        .modal-content {
+            background-color: var(--white);
+            margin: 50px auto;
+            padding: 35px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: var(--shadow-hover);
+            animation: slideUp 0.4s ease-out;
         }
         
-        .add-on {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px dashed #eee;
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .about {
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        
-        .about-avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            border: 5px solid var(--accent);
+            border-radius: 50%;
         }
         
-        .about-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .close-modal:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .modal-title {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            text-align: center;
+            font-weight: 700;
         }
         
         /* Order Form */
         .order-form-container {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a3d2d 100%);
-            padding: 30px;
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(10, 41, 30, 0.2);
-            position: sticky;
-            top: 20px;
-        }
-        
-        .form-title {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        
-        .simple-order-btn {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            padding: 18px 30px;
-            font-size: 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .simple-order-btn:hover {
-            background-color: #6a4a2d;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .form-steps {
-            display: none;
-        }
-        
-        /* Прогресс-бар */
-        .progress-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .progress-bar::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.2);
-            z-index: 1;
-        }
-        
-        .progress-line {
-            position: absolute;
-            top: 15px;
-            left: 0;
-            height: 3px;
-            background: var(--accent);
-            z-index: 2;
-            transition: width 0.3s ease;
-        }
-        
-        .progress-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 3;
-        }
-        
-        .step-circle {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .progress-step.active .step-circle {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-        
-        .step-label {
-            font-size: 0.8rem;
-            text-align: center;
-            opacity: 0.7;
-        }
-        
-        .progress-step.active .step-label {
-            opacity: 1;
-            color: #f8d7a4;
-        }
-        
-        .step {
-            display: none;
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        .step.active {
-            display: block;
-        }
-        
-        .step-header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border-left: 4px solid var(--accent);
-        }
-        
-        .step-title {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-            color: #f8d7a4;
-        }
-        
-        .step-subtitle {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            background: var(--white);
         }
         
         .form-group {
@@ -412,139 +526,113 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            color: var(--text-dark);
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 8px;
+            padding: 14px 16px;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
             font-size: 16px;
-            background-color: rgba(255, 255, 255, 0.9);
-        }
-        
-        /* Большие комфортные чекбоксы */
-        .checkbox-group-large {
-            margin-bottom: 15px;
-        }
-        
-        .checkbox-large {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .checkbox-large:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .checkbox-large input {
-            width: 20px;
-            height: 20px;
-            margin-right: 15px;
-            cursor: pointer;
-        }
-        
-        .checkbox-label {
-            flex: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .checkbox-text {
-            font-size: 16px;
-            font-weight: 500;
-        }
-        
-        .checkbox-price {
-            color: #f8d7a4;
-            font-weight: 600;
-            font-size: 16px;
-        }
-        
-        .step-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .step-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
+            background-color: var(--white);
             transition: all 0.3s;
         }
         
-        .prev-btn {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
         }
         
-        .next-btn {
-            background-color: var(--accent);
-            color: white;
-        }
-        
-        .success-message {
-            display: none;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: var(--primary-dark);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        /* Модальные окна */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            overflow-y: auto;
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        .close-modal {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            color: var(--primary-dark);
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
+        .checkbox-group {
             margin-bottom: 20px;
-            color: var(--primary-dark);
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: var(--primary-light);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(46, 139, 87, 0.15);
+        }
+        
+        .checkbox-item input {
+            width: auto;
+            margin-right: 12px;
+        }
+        
+        .submit-order-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
+        }
+        
+        .submit-order-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.5);
+        }
+        
+        .new-car-option {
+            background: var(--primary-light);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-top: 10px;
             text-align: center;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .new-car-option:hover {
+            background: rgba(46, 139, 87, 0.2);
+        }
+        
+        /* Add Car Form */
+        .add-car-form {
+            background: var(--white);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .save-car-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
+        }
+        
+        .save-car-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.5);
         }
         
         /* Визитка */
@@ -555,33 +643,24 @@
         .vcard-logo {
             width: 100px;
             height: 100px;
+            background: var(--gradient);
             margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-        }
-        
-        .vcard-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            border-radius: 20px;
+            color: white;
+            font-size: 2rem;
         }
         
         .vcard-title {
             font-size: 1.8rem;
             margin-bottom: 5px;
-            color: var(--primary-dark);
-        }
-        
-        .vcard-subtitle {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 25px;
+            color: var(--text-dark);
         }
         
         .contact-info {
-            margin: 20px 0;
+            margin: 25px 0;
             text-align: left;
         }
         
@@ -589,47 +668,48 @@
             display: flex;
             align-items: center;
             margin-bottom: 15px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 15px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: translateX(5px);
+            background: var(--white);
+            box-shadow: var(--shadow);
         }
         
         .contact-item i {
-            width: 30px;
-            color: var(--accent);
-            font-size: 1.2rem;
-        }
-        
-        .qr-code {
-            margin: 20px auto;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            display: inline-block;
+            width: 40px;
+            color: var(--primary);
+            font-size: 1.3rem;
         }
         
         .social-share {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin: 25px 0;
+            margin: 30px 0;
         }
         
         .share-btn {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
         .share-btn:hover {
-            transform: scale(1.1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         
         .telegram-share {
@@ -641,401 +721,360 @@
         }
         
         .save-vcard {
-            background: var(--accent);
+            background: var(--gradient);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 14px 25px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             margin-top: 15px;
             transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
         }
         
         .save-vcard:hover {
-            background: #6a4a2d;
             transform: translateY(-2px);
-        }
-        
-        /* Инструкция по добавлению на рабочий стол */
-        .instruction-step {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-        
-        .step-number {
-            background: var(--accent);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-        
-        .step-content h4 {
-            margin-bottom: 5px;
-            color: var(--primary-dark);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--primary-dark);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-        
-        .footer-contact {
-            margin-bottom: 20px;
-        }
-        
-        .footer-contact a {
-            color: white;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            margin: 0 15px;
-        }
-        
-        .footer-contact i {
-            margin-right: 8px;
-        }
-        
-        .copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.5);
         }
         
         /* Анимации */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         /* Responsive */
-        @media (max-width: 900px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .service-features {
-                grid-template-columns: 1fr;
-            }
-            
-            .order-form-container {
-                position: static;
-            }
-            
-            .logo h1 {
-                font-size: 2.8rem;
-            }
-            
-            .mai-text {
-                font-size: 2.8rem;
-            }
-            
-            .logo .auto-text {
-                font-size: 2.4rem;
-            }
-            
-            .header-buttons {
+        @media (max-width: 768px) {
+            .header-content {
                 flex-direction: column;
-                align-items: center;
+                gap: 12px;
+                text-align: center;
             }
             
-            .header-btn {
-                width: 250px;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo h1 {
-                font-size: 2.2rem;
+            .phone-number {
+                font-size: 1.1rem;
             }
             
-            .mai-text {
-                font-size: 2.2rem;
+            .form-row {
+                grid-template-columns: 1fr;
             }
             
-            .logo .auto-text {
-                font-size: 1.8rem;
+            .cars-container {
+                grid-template-columns: 1fr;
             }
             
             .modal-content {
-                margin: 10px auto;
+                margin: 20px auto;
                 width: 95%;
-                padding: 20px;
+                padding: 25px;
             }
             
-            .progress-step .step-label {
-                font-size: 0.7rem;
+            .bottom-nav {
+                width: 90%;
+                min-width: unset;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+            
+            .mai-text {
+                font-size: 1.4rem;
+            }
+            
+            .logo .auto-text {
+                font-size: 1.2rem;
+            }
+            
+            .phone-number {
+                font-size: 1rem;
+            }
+            
+            .bottom-nav {
+                padding: 12px;
+            }
+            
+            .order-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                min-width: 120px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104630791', 'ym');
-
-    ym(104630791, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/104630791" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-    
+    <!-- Header -->
     <header>
         <div class="container">
-            <div class="logo">
-                <div class="logo-image">
-                    <!-- Замените src на путь к вашему логотипу -->
-                    <img src="logo.png" alt="Май авто логотип">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h1>
+                        <span class="mai-text">Май</span>
+                        <span class="auto-text">авто</span>
+                    </h1>
                 </div>
-                <h1>
-                    <span class="mai-text">Май</span>
-                    <span class="auto-text">авто</span>
-                </h1>
-                <p>Лёгкая общая химчистка салона с выездом к вам в Санкт-Петербурге и ЛО</p>
-                
-                <div class="header-buttons">
-                    <button class="header-btn" id="fastOrderBtn">
-                        <i class="fas fa-bolt"></i> Быстрый заказ
-                    </button>
-                    <button class="header-btn desktop-btn" id="desktopBtn">
-                        <i class="fas fa-plus-square"></i> На рабочий стол
-                    </button>
-                    <button class="header-btn vcard-btn" id="vcardBtn">
-                        <i class="fas fa-id-card"></i> Визитка
+                <div class="header-contact">
+                    <div class="order-text">Заказать</div>
+                    <div class="phone-number">8-901-686-07-68</div>
+                    <button class="vcard-icon" id="vcardBtn">
+                        <i class="fas fa-id-card"></i>
                     </button>
                 </div>
             </div>
         </div>
     </header>
-    
+
+    <!-- Main Content -->
     <div class="container">
         <div class="main-content">
-            <div class="content-left">
-                <section class="service-section">
-                    <h2 class="section-title">Описание услуги</h2>
-                    <div class="service-description">
-                        <p>Лёгкая общая химчистка салона Вашего автомобиля - это идеальный способ освежить салон, позаботиться о своей любимой машине и получить полное удовольствие от езды на своей ласточке. Это не просто уборка, а забота о вашем комфорте и поддержании автомобиля в отличном состоянии.</p>
-                        
-                        <div class="service-features">
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Продувка салона автомобиля от пыли</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Влажная уборка поверхностей салона авто с применением специальной химии</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Сухая уборка с применением защитной химии</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Чистка с применением пылесоса</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Чистка с использованием моющего пылесоса</span>
-                            </div>
-                            <div class="feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Освежение и дезодорация салона</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <section class="service-section">
-                    <h2 class="section-title">Стоимость услуги</h2>
-                    <div class="pricing">
-                        <p>Стоимость фиксированная и составляет:</p>
-                        <div class="price">990₽</div>
-                        <p>При заказе с выездом в область стоимость рассчитывается как 990₽ + 10₽ за километр пути.</p>
-                        
-                        <div class="add-ons">
-                            <h3>Дополнительные опции:</h3>
-                            <div class="add-on">
-                                <span>Чистка багажника</span>
-                                <span>+ 200₽</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <section class="service-section">
-                    <h2 class="section-title">Обо мне</h2>
-                    <div class="about">
-                        <div class="about-avatar">
-                            <!-- Замените src на путь к вашей фотографии -->
-                            <img src="photo.jpg" alt="Владислав">
-                        </div>
-                        <p>Здравствуйте! Меня зовут Владислав. Я сам являюсь автовладельцем, и очень люблю, когда мой автомобиль приносит мне комфорт и уют, поэтому слежу за ним должным образом: регулярно мою и провожу химчистку салона.</p>
-                        <p style="margin-top: 15px;">Мне хотелось бы, чтобы подобная услуга была доступна большему числу людей, а не только тем, кто "может себе это позволить", ведь уход за своим автомобилем это часть заботы о себе и залог внутреннего спокойствия и комфорта. Всегда приятно знать, что на улице тебя ждет ухоженный автомобиль.</p>
-                    </div>
-                </section>
-            </div>
-            
-            <div class="content-right">
-                <div class="order-form-container" id="orderFormSection">
-                    <h2 class="form-title">Заказать</h2>
+            <!-- Мои авто -->
+            <div class="tab-content active" id="myCarsTab">
+                <div class="cars-section">
+                    <h2 class="section-title">Мои автомобили</h2>
+                    <p class="section-subtitle">Добавьте свои автомобили для удобного заказа химчистки и отслеживания обслуживания</p>
                     
-                    <button class="simple-order-btn" id="startOrderBtn">
-                        <i class="fas fa-car"></i> Сделать заказ
+                    <div class="cars-container" id="carsContainer">
+                        <!-- Автомобили будут добавляться динамически -->
+                    </div>
+                    
+                    <button class="add-car-btn" id="addCarBtn">
+                        <i class="fas fa-plus-circle"></i> Добавить автомобиль
                     </button>
+                </div>
+            </div>
+
+            <!-- Описание -->
+            <div class="tab-content" id="descriptionTab">
+                <h2 class="section-title">Наши услуги</h2>
+                <div class="service-description">
+                    <p>Стоимость фиксированная — <strong>1490₽</strong> с выездом по адресу. Общая химчистка-уборка салона Вашего автомобиля с использованием средств влажной и сухой уборки.</p>
+                    <p style="margin-top: 15px;">Вы можете спокойно заниматься своими делами, достаточно только открыть автомобиль — я напишу Вам по готовности. Время на работы — около часа.</p>
                     
-                    <div class="form-steps" id="formSteps">
-                        <!-- Прогресс-бар -->
-                        <div class="progress-bar">
-                            <div class="progress-line" id="progressLine"></div>
-                            <div class="progress-step active" data-step="1">
-                                <div class="step-circle">1</div>
-                                <div class="step-label">Контакты</div>
-                            </div>
-                            <div class="progress-step" data-step="2">
-                                <div class="step-circle">2</div>
-                                <div class="step-label">Авто</div>
-                            </div>
-                            <div class="progress-step" data-step="3">
-                                <div class="step-circle">3</div>
-                                <div class="step-label">Время</div>
-                            </div>
-                            <div class="progress-step" data-step="4">
-                                <div class="step-circle">4</div>
-                                <div class="step-label">Дополнения</div>
-                            </div>
+                    <h3 style="margin: 25px 0 15px; color: var(--text-dark);">Что входит в услугу?</h3>
+                    
+                    <div class="service-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Чистка ковролина щеткой и пылесосом</span>
                         </div>
-                        
-                        <!-- Шаг 1: Контактные данные -->
-                        <div class="step active" id="step1">
-                            <div class="step-header">
-                                <div class="step-title">📞 Знакомство</div>
-                                <div class="step-subtitle">Уже собираемся к вам! Осталось немного информации</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="name">Ваше имя:</label>
-                                <input type="text" id="name" placeholder="Как к вам обращаться?" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phone">Телефон:</label>
-                                <input type="tel" id="phone" placeholder="+7 (XXX) XXX-XX-XX" required>
-                            </div>
-                            
-                            <div class="step-buttons">
-                                <button class="step-btn next-btn" data-next="2">Далее →</button>
-                            </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Чистка сидений моющим пылесосом с применением специальной химии</span>
                         </div>
-                        
-                        <!-- Шаг 2: Авто и адрес -->
-                        <div class="step" id="step2">
-                            <div class="step-header">
-                                <div class="step-title">🚗 Ваш автомобиль</div>
-                                <div class="step-subtitle">Готовим оборудование и химию для вашего авто</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="carBrand">Марка и модель авто:</label>
-                                <input type="text" id="carBrand" placeholder="Например: Toyota Camry" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="address">Адрес:</label>
-                                <input type="text" id="address" placeholder="Куда приехать?" required>
-                            </div>
-                            
-                            <div class="step-buttons">
-                                <button class="step-btn prev-btn" data-prev="1">← Назад</button>
-                                <button class="step-btn next-btn" data-next="3">Далее →</button>
-                            </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Чистка порогов и дверей</span>
                         </div>
-                        
-                        <!-- Шаг 3: Время -->
-                        <div class="step" id="step3">
-                            <div class="step-header">
-                                <div class="step-title">⏰ Время встречи</div>
-                                <div class="step-subtitle">Завершаем подготовку и выезжаем к вам!</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="datetime">Когда удобно:</label>
-                                <input type="datetime-local" id="datetime" required>
-                            </div>
-                            
-                            <div class="step-buttons">
-                                <button class="step-btn prev-btn" data-prev="2">← Назад</button>
-                                <button class="step-btn next-btn" data-next="4">Далее →</button>
-                            </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Чистка приборной панели</span>
                         </div>
-                        
-                        <!-- Шаг 4: Дополнительные опции -->
-                        <div class="step" id="step4">
-                            <div class="step-header">
-                                <div class="step-title">✨ Дополнительные услуги</div>
-                                <div class="step-subtitle">Выберите дополнительные опции для вашего авто</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Дополнительные опции:</label>
-                                <div class="checkbox-group-large">
-                                    <label class="checkbox-large">
-                                        <input type="checkbox" id="trunkCleaning" value="trunk">
-                                        <div class="checkbox-label">
-                                            <span class="checkbox-text">Чистка багажника</span>
-                                            <span class="checkbox-price">+200₽</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                            <div class="step-buttons">
-                                <button class="step-btn prev-btn" data-prev="3">← Назад</button>
-                                <button class="step-btn next-btn" id="finalSubmitBtn">Отправить заказ</button>
-                            </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Использование защитной химии (полироль для пластика, кондиционер для кожи)</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Удаление запаха после уборки (при желании)</span>
                         </div>
                     </div>
                     
-                    <div class="success-message" id="successMessage">
-                        <i class="fas fa-check-circle" style="color: #4CAF50; font-size: 2rem; margin-bottom: 10px;"></i>
-                        <h3>Спасибо за заказ!</h3>
-                        <p>Мы свяжемся с вами в ближайшее время для подтверждения.</p>
+                    <div class="pricing-info">
+                        <h3>Стоимость услуги</h3>
+                        <p>Стоимость фиксированная и составляет <strong>1490₽</strong> с выездом по адресу по Санкт-Петербургу.</p>
+                        <p><strong>Выезд по области:</strong> +20₽ за километр пути.</p>
+                        
+                        <h4 style="margin-top: 15px;">Категории транспорта:</h4>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Седаны, кроссоверы — 1490₽</li>
+                            <li>Микроавтобусы, вены — 2490₽</li>
+                            <li>Строительная техника — 3490₽</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-item active" data-tab="myCarsTab">
+            <i class="fas fa-car"></i>
+            <span>Мои авто</span>
+        </button>
+        <button class="order-btn" id="orderNavBtn">
+            <i class="fas fa-sparkles"></i>
+            ЗАКАЗАТЬ
+        </button>
+        <button class="nav-item" data-tab="descriptionTab">
+            <i class="fas fa-info-circle"></i>
+            <span>Описание</span>
+        </button>
+    </div>
+
+    <!-- Модальное окно заказа -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeOrderModal">&times;</span>
+            <h2 class="modal-title">Заказать химчистку</h2>
+            
+            <div class="order-form-container">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="selectedCar">Выберите автомобиль:</label>
+                        <select id="selectedCar">
+                            <option value="">Новый автомобиль</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="carBrandInput">Марка и модель авто:</label>
+                        <input type="text" id="carBrandInput" placeholder="Например: Toyota Camry">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orderAddress">Адрес:</label>
+                        <input type="text" id="orderAddress" placeholder="Куда приехать?" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orderDateTime">Когда удобно:</label>
+                        <input type="datetime-local" id="orderDateTime" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Дополнительные опции:</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="orderTrunk" value="trunk">
+                                <label for="orderTrunk">Чистка багажника (+300₽)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="orderCeiling" value="ceiling">
+                                <label for="orderCeiling">Чистка потолка (+200₽)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="orderCarpet" value="carpet">
+                                <label for="orderCarpet">Мытье ковролина (+400₽)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="orderWindows" value="windows">
+                                <label for="orderWindows">Чистка стекол (+100₽)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-order-btn">
+                        <i class="fas fa-paper-plane"></i> Отправить заказ
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления авто -->
+    <div class="modal" id="addCarModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeAddCarModal">&times;</span>
+            <h2 class="modal-title">Добавить автомобиль</h2>
+            
+            <div class="add-car-form">
+                <form id="carForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carBrand">Марка и модель:</label>
+                            <input type="text" id="carBrand" placeholder="Например: Toyota Camry" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="carYear">Год выпуска:</label>
+                            <input type="number" id="carYear" min="1990" max="2024" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carColor">Цвет:</label>
+                            <input type="text" id="carColor" placeholder="Цвет автомобиля" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="carType">Тип транспорта:</label>
+                            <select id="carType" required>
+                                <option value="sedan">Седан, кроссовер</option>
+                                <option value="minibus">Микроавтобус, вен</option>
+                                <option value="construction">Строительная техника</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastService">Дата последнего ТО:</label>
+                        <input type="date" id="lastService">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="serviceDetails">Что было сделано на ТО:</label>
+                        <textarea id="serviceDetails" rows="3" placeholder="Описание работ на последнем ТО"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastCleaning">Дата последней химчистки:</label>
+                        <input type="date" id="lastCleaning">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Предпочтения по химчистке:</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prefTrunk" value="trunk">
+                                <label for="prefTrunk">Всегда чистить багажник</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prefCeiling" value="ceiling">
+                                <label for="prefCeiling">Всегда чистить потолок</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prefCarpet" value="carpet">
+                                <label for="prefCarpet">Всегда мыть ковролин</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="prefWindows" value="windows">
+                                <label for="prefWindows">Всегда чистить стекла</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="save-car-btn">
+                        <i class="fas fa-save"></i> Сохранить автомобиль
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Модальное окно визитки -->
     <div class="modal" id="vcardModal">
         <div class="modal-content">
             <span class="close-modal" id="closeVcardModal">&times;</span>
             <div class="vcard-content">
                 <div class="vcard-logo">
-                    <img src="logo.png" alt="Май авто логотип">
+                    <i class="fas fa-car"></i>
                 </div>
                 <h2 class="vcard-title">Май <span style="font-family: 'Marck Script', cursive;">авто</span></h2>
-                <p class="vcard-subtitle">Выездная химчистка автомобилей</p>
+                <p style="color: var(--text-light); margin-bottom: 25px;">Выездная химчистка автомобилей</p>
                 
                 <div class="contact-info">
                     <div class="contact-item">
@@ -1047,8 +1086,6 @@
                         <span>8-901-686-07-68</span>
                     </div>
                 </div>
-                
-                <div class="qr-code" id="qrCodeContainer"></div>
                 
                 <div class="social-share">
                     <div class="share-btn telegram-share" id="shareTelegram">
@@ -1065,337 +1102,391 @@
             </div>
         </div>
     </div>
-    
-    <!-- Модальное окно инструкции -->
-    <div class="modal" id="desktopModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeDesktopModal">&times;</span>
-            <h2 class="modal-title">Добавить на рабочий стол</h2>
-            
-            <div class="instruction-step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h4>Для iOS (iPhone/iPad)</h4>
-                    <p>Откройте сайт в Safari → Нажмите "Поделиться" → "На экран «Домой»"</p>
-                </div>
-            </div>
-            
-            <div class="instruction-step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h4>Для Android</h4>
-                    <p>Откройте сайт в Chrome → Нажмите меню (три точки) → "Добавить на главный экран"</p>
-                </div>
-            </div>
-            
-            <div class="instruction-step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h4>Для других браузеров</h4>
-                    <p>Ищите в меню браузера опцию "Добавить на главный экран" или "Установить приложение"</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-contact">
-                <a href="https://t.me/Penekopasen" target="_blank">
-                    <i class="fab fa-telegram"></i> Telegram: @Penekopasen
-                </a>
-                <a href="tel:89016860768">
-                    <i class="fas fa-phone"></i> 8-901-686-07-68
-                </a>
-            </div>
-            <div class="copyright">
-                &copy; <span id="currentYear"></span> Май авто. Все права защищены.
-            </div>
-        </div>
-    </footer>
 
     <script>
+        // Хранилище данных
+        let userCars = JSON.parse(localStorage.getItem('userCars')) || [];
+
+        // Цвета для иконок авто
+        const colorMap = {
+            'красный': '#DC2626',
+            'синий': '#2563EB',
+            'зеленый': '#16A34A',
+            'черный': '#000000',
+            'белый': '#6B7280',
+            'серый': '#6B7280',
+            'серебристый': '#9CA3AF',
+            'желтый': '#EAB308',
+            'оранжевый': '#EA580C',
+            'фиолетовый': '#9333EA',
+            'коричневый': '#92400E'
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Устанавливаем текущий год в футере
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            // Инициализация приложения
+            initApp();
             
-            // Устанавливаем дату по умолчанию - текущий день, время +5 часов
-            const datetimeInput = document.getElementById('datetime');
+            // Навигация по вкладкам
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Убираем активный класс у всех вкладок
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                    
+                    // Добавляем активный класс текущей вкладке
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Открытие модального окна заказа
+            document.getElementById('orderNavBtn').addEventListener('click', function() {
+                updateCarSelect();
+                document.getElementById('orderModal').style.display = 'block';
+            });
+            
+            // Открытие модального окна добавления авто
+            document.getElementById('addCarBtn').addEventListener('click', function() {
+                document.getElementById('addCarModal').style.display = 'block';
+            });
+            
+            // Закрытие модальных окон
+            document.getElementById('closeOrderModal').addEventListener('click', function() {
+                document.getElementById('orderModal').style.display = 'none';
+            });
+            
+            document.getElementById('closeAddCarModal').addEventListener('click', function() {
+                document.getElementById('addCarModal').style.display = 'none';
+            });
+            
+            document.getElementById('closeVcardModal').addEventListener('click', function() {
+                document.getElementById('vcardModal').style.display = 'none';
+            });
+            
+            // Открытие визитки
+            document.getElementById('vcardBtn').addEventListener('click', function() {
+                document.getElementById('vcardModal').style.display = 'block';
+            });
+            
+            // Сохранение автомобиля
+            document.getElementById('carForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveCar();
+            });
+            
+            // Отправка заказа
+            document.getElementById('orderForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitOrder();
+            });
+            
+            // Выбор автомобиля в форме заказа
+            document.getElementById('selectedCar').addEventListener('change', function() {
+                const selectedIndex = this.value;
+                if (selectedIndex && userCars[selectedIndex]) {
+                    const car = userCars[selectedIndex];
+                    document.getElementById('carBrandInput').value = car.brand;
+                    
+                    // Автоматически выбираем предпочтения
+                    if (car.preferences) {
+                        document.getElementById('orderTrunk').checked = car.preferences.trunk;
+                        document.getElementById('orderCeiling').checked = car.preferences.ceiling;
+                        document.getElementById('orderCarpet').checked = car.preferences.carpet;
+                        document.getElementById('orderWindows').checked = car.preferences.windows;
+                    }
+                } else {
+                    document.getElementById('carBrandInput').value = '';
+                }
+            });
+            
+            // Поделиться в соцсетях
+            document.getElementById('shareTelegram').addEventListener('click', shareToTelegram);
+            document.getElementById('shareWhatsapp').addEventListener('click', shareToWhatsapp);
+            document.getElementById('saveVcardBtn').addEventListener('click', saveVcardAsImage);
+            
+            // Закрытие модальных окон по клику вне контента
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+        });
+
+        function initApp() {
+            renderCars();
+            updateCarSelect();
+            
+            // Устанавливаем дату по умолчанию для заказа
+            const datetimeInput = document.getElementById('orderDateTime');
             const now = new Date();
             datetimeInput.min = now.toISOString().slice(0, 16);
             const defaultTime = new Date(now);
             defaultTime.setHours(defaultTime.getHours() + 5);
             datetimeInput.value = defaultTime.toISOString().slice(0, 16);
+        }
+
+        function renderCars() {
+            const container = document.getElementById('carsContainer');
+            container.innerHTML = '';
             
-            // Переменные для формы
-            const fastOrderBtn = document.getElementById('fastOrderBtn');
-            const startOrderBtn = document.getElementById('startOrderBtn');
-            const formSteps = document.getElementById('formSteps');
-            const steps = document.querySelectorAll('.step');
-            const progressSteps = document.querySelectorAll('.progress-step');
-            const progressLine = document.getElementById('progressLine');
-            const successMessage = document.getElementById('successMessage');
-            let currentStep = 1;
-            const totalSteps = 4;
-            
-            // Быстрый заказ - прокрутка к форме
-            fastOrderBtn.addEventListener('click', function() {
-                document.getElementById('orderFormSection').scrollIntoView({ 
-                    behavior: 'smooth' 
-                });
-            });
-            
-            // Начало заказа
-            startOrderBtn.addEventListener('click', function() {
-                formSteps.style.display = 'block';
-                startOrderBtn.style.display = 'none';
-                showStep(1);
-                updateProgressBar(1);
-            });
-            
-            // Функция показа шага
-            function showStep(stepNumber) {
-                steps.forEach(step => step.classList.remove('active'));
-                document.getElementById(`step${stepNumber}`).classList.add('active');
-                currentStep = stepNumber;
-                updateProgressBar(stepNumber);
+            if (userCars.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: var(--text-light);">
+                        <i class="fas fa-car" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <h3 style="margin-bottom: 15px; color: var(--text-light);">Нет добавленных автомобилей</h3>
+                        <p>Добавьте свой первый автомобиль для удобного заказа химчистки</p>
+                    </div>
+                `;
+                return;
             }
             
-            // Функция обновления прогресс-бара
-            function updateProgressBar(stepNumber) {
-                // Обновляем активные шаги
-                progressSteps.forEach((step, index) => {
-                    if (index < stepNumber) {
-                        step.classList.add('active');
-                    } else {
-                        step.classList.remove('active');
-                    }
-                });
+            userCars.forEach((car, index) => {
+                const needsCleaning = checkIfNeedsCleaning(car.lastCleaning);
+                const carColor = getCarColor(car.color);
                 
-                // Обновляем линию прогресса
-                const progressWidth = ((stepNumber - 1) / (totalSteps - 1)) * 100;
-                progressLine.style.width = `${progressWidth}%`;
-            }
-            
-            // Обработчики кнопок навигации
-            document.querySelectorAll('.next-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const nextStep = this.getAttribute('data-next');
-                    if (nextStep) {
-                        showStep(parseInt(nextStep));
-                    } else if (this.id === 'finalSubmitBtn') {
-                        submitOrder();
-                    }
-                });
+                const carCard = document.createElement('div');
+                carCard.className = `car-card ${needsCleaning ? 'need-cleaning' : ''}`;
+                carCard.innerHTML = `
+                    <div class="car-header">
+                        <div class="car-icon" style="background: ${carColor}">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="car-info">
+                            <div class="car-model">${car.brand}</div>
+                            <div class="car-year">${car.year} год • ${car.color}</div>
+                        </div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-detail">
+                            <span>Тип транспорта:</span>
+                            <span>${getVehicleTypeText(car.type)}</span>
+                        </div>
+                        ${car.lastService ? `
+                        <div class="car-detail">
+                            <span>Последнее ТО:</span>
+                            <span>${formatDate(car.lastService)}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    <div class="car-status">
+                        <div class="status-item">
+                            <span>Последняя химчистка:</span>
+                            <span>${car.lastCleaning ? formatDate(car.lastCleaning) : 'Никогда'}</span>
+                        </div>
+                    </div>
+                    ${needsCleaning ? `
+                    <div class="cleaning-alert">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Пора заказать химчистку!
+                    </div>
+                    ` : ''}
+                `;
+                container.appendChild(carCard);
             });
+        }
+
+        function updateCarSelect() {
+            const select = document.getElementById('selectedCar');
+            select.innerHTML = '<option value="">Новый автомобиль</option>';
             
-            document.querySelectorAll('.prev-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const prevStep = this.getAttribute('data-prev');
-                    showStep(parseInt(prevStep));
-                });
+            userCars.forEach((car, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${car.brand} (${car.year}, ${car.color})`;
+                select.appendChild(option);
             });
-            
-            // Функция отправки заказа
-            function submitOrder() {
-                const name = document.getElementById('name').value;
-                const phone = document.getElementById('phone').value;
-                const address = document.getElementById('address').value;
-                const datetime = document.getElementById('datetime').value;
-                const carBrand = document.getElementById('carBrand').value;
-                const trunkCleaning = document.getElementById('trunkCleaning').checked;
-                
-                if (!name || !phone || !address || !datetime || !carBrand) {
-                    alert('Пожалуйста, заполните все обязательные поля');
-                    return;
+        }
+
+        function saveCar() {
+            const carData = {
+                brand: document.getElementById('carBrand').value,
+                year: document.getElementById('carYear').value,
+                color: document.getElementById('carColor').value,
+                type: document.getElementById('carType').value,
+                lastService: document.getElementById('lastService').value,
+                serviceDetails: document.getElementById('serviceDetails').value,
+                lastCleaning: document.getElementById('lastCleaning').value,
+                preferences: {
+                    trunk: document.getElementById('prefTrunk').checked,
+                    ceiling: document.getElementById('prefCeiling').checked,
+                    carpet: document.getElementById('prefCarpet').checked,
+                    windows: document.getElementById('prefWindows').checked
                 }
-                
-                // Форматируем дату и время
-                const formattedDateTime = formatDateTime(datetime);
-                
-                // Формируем сообщение для Telegram
-                let message = `Новый заказ химчистки!%0A%0A`;
-                message += `👤 Имя: ${name}%0A`;
-                message += `📞 Телефон: ${phone}%0A`;
+            };
+            
+            userCars.push(carData);
+            localStorage.setItem('userCars', JSON.stringify(userCars));
+            
+            renderCars();
+            updateCarSelect();
+            document.getElementById('addCarModal').style.display = 'none';
+            document.getElementById('carForm').reset();
+        }
+
+        function submitOrder() {
+            const selectedCarIndex = document.getElementById('selectedCar').value;
+            const carBrand = document.getElementById('carBrandInput').value;
+            
+            if (!carBrand) {
+                alert('Пожалуйста, укажите марку и модель автомобиля');
+                return;
+            }
+            
+            const address = document.getElementById('orderAddress').value;
+            const datetime = document.getElementById('orderDateTime').value;
+            
+            if (!address) {
+                alert('Пожалуйста, укажите адрес');
+                return;
+            }
+            
+            // Формируем сообщение для Telegram
+            let message = `Новый заказ химчистки!%0A%0A`;
+            
+            if (selectedCarIndex && userCars[selectedCarIndex]) {
+                const car = userCars[selectedCarIndex];
+                message += `🚗 Авто: ${car.brand} (${car.year}, ${car.color})%0A`;
+            } else {
                 message += `🚗 Авто: ${carBrand}%0A`;
-                message += `📍 Адрес: ${address}%0A`;
-                message += `⏰ Время: ${formattedDateTime}%0A`;
-                
-                let totalPrice = 990;
-                if (trunkCleaning) {
-                    message += `🧳 Чистка багажника: Да%0A`;
-                    totalPrice += 200;
-                }
-                
-                // Проверяем, является ли адрес областью (ЛО)
-                const isRegion = address.toLowerCase().includes('область') || 
-                                address.toLowerCase().includes('поселок') || 
-                                address.toLowerCase().includes('деревня') || 
-                                (address.toLowerCase().includes('спб') === false && 
-                                 address.toLowerCase().includes('санкт-петербург') === false);
-                
-                if (isRegion) {
-                    message += `📍 Выезд в область: Да%0A`;
-                    message += `💰 Базовая стоимость: 990₽%0A`;
-                    message += `💰 Доплата за километраж: рассчитывается индивидуально%0A`;
-                } else {
-                    message += `💰 Итого: ${totalPrice}₽%0A`;
-                }
-                
-                // Открываем Telegram с готовым сообщением
-                window.open(`https://t.me/Penekopasen?text=${message}`, '_blank');
-                
-                // Показываем сообщение об успехе
-                formSteps.style.display = 'none';
-                successMessage.style.display = 'block';
-                
-                // Сбрасываем форму через 5 секунд
-                setTimeout(() => {
-                    document.getElementById('orderForm').reset();
-                    datetimeInput.value = defaultTime.toISOString().slice(0, 16);
-                    successMessage.style.display = 'none';
-                    startOrderBtn.style.display = 'flex';
-                    showStep(1);
-                    updateProgressBar(1);
-                }, 5000);
             }
             
-            // Функция для форматирования даты
-            function formatDateTime(dateTimeString) {
-                const date = new Date(dateTimeString);
-                const day = String(date.getDate()).padStart(2, '0');
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const year = date.getFullYear();
-                const hours = String(date.getHours()).padStart(2, '0');
-                const minutes = String(date.getMinutes()).padStart(2, '0');
-                
-                return `${day}-${month}-${year} ${hours}:${minutes}`;
+            message += `📍 Адрес: ${address}%0A`;
+            message += `⏰ Время: ${formatDateTime(datetime)}%0A`;
+            
+            // Добавляем дополнительные услуги
+            let additionalServices = [];
+            let totalPrice = 1490; // Базовая цена
+            
+            if (document.getElementById('orderTrunk').checked) {
+                additionalServices.push('Чистка багажника (+300₽)');
+                totalPrice += 300;
+            }
+            if (document.getElementById('orderCeiling').checked) {
+                additionalServices.push('Чистка потолка (+200₽)');
+                totalPrice += 200;
+            }
+            if (document.getElementById('orderCarpet').checked) {
+                additionalServices.push('Мытье ковролина (+400₽)');
+                totalPrice += 400;
+            }
+            if (document.getElementById('orderWindows').checked) {
+                additionalServices.push('Чистка стекол (+100₽)');
+                totalPrice += 100;
             }
             
-            // Модальное окно для добавления на рабочий стол
-            const desktopBtn = document.getElementById('desktopBtn');
-            const desktopModal = document.getElementById('desktopModal');
-            const closeDesktopModal = document.getElementById('closeDesktopModal');
+            if (additionalServices.length > 0) {
+                message += `✨ Доп. услуги: ${additionalServices.join(', ')}%0A`;
+            }
             
-            desktopBtn.addEventListener('click', () => {
-                desktopModal.style.display = 'block';
-            });
+            message += `💰 Итого: ${totalPrice}₽%0A`;
             
-            closeDesktopModal.addEventListener('click', () => {
-                desktopModal.style.display = 'none';
-            });
+            // Открываем Telegram с готовым сообщением
+            window.open(`https://t.me/Penekopasen?text=${message}`, '_blank');
             
-            // Визитка
-            const vcardBtn = document.getElementById('vcardBtn');
-            const vcardModal = document.getElementById('vcardModal');
-            const closeVcardModal = document.getElementById('closeVcardModal');
-            const saveVcardBtn = document.getElementById('saveVcardBtn');
-            const shareTelegram = document.getElementById('shareTelegram');
-            const shareWhatsapp = document.getElementById('shareWhatsapp');
+            // Закрываем модальное окно
+            document.getElementById('orderModal').style.display = 'none';
+            document.getElementById('orderForm').reset();
+        }
+
+        function checkIfNeedsCleaning(lastCleaningDate) {
+            if (!lastCleaningDate) return true;
             
-            vcardBtn.addEventListener('click', () => {
-                // Генерируем QR-код с актуальной ссылкой
-                const qrContainer = document.getElementById('qrCodeContainer');
-                qrContainer.innerHTML = '';
-                
-                const qr = qrcode(0, 'M');
-                qr.addData('https://tobias-bot.github.io/May-car/');
-                qr.make();
-                
-                qrContainer.innerHTML = qr.createImgTag(5);
-                
-                // Показываем модальное окно
-                vcardModal.style.display = 'block';
-            });
+            const lastCleaning = new Date(lastCleaningDate);
+            const threeWeeksAgo = new Date();
+            threeWeeksAgo.setDate(threeWeeksAgo.getDate() - 21);
             
-            closeVcardModal.addEventListener('click', () => {
-                vcardModal.style.display = 'none';
-            });
-            
-            // Сохранение визитки
-            saveVcardBtn.addEventListener('click', function() {
-                // Создаем canvas для визитки
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = 600;
-                canvas.height = 800;
-                
-                // Фон
-                ctx.fillStyle = '#0a291e';
-                ctx.fillRect(0, 0, canvas.width, 250);
-                
-                ctx.fillStyle = '#fffdfa';
-                ctx.fillRect(0, 250, canvas.width, 550);
-                
-                // Логотип и название
-                ctx.fillStyle = '#f8d7a4';
-                ctx.font = 'bold 40px Arial';
-                ctx.fillText('Май', 150, 100);
-                
-                ctx.font = 'bold 36px Marck Script';
-                ctx.fillText('авто', 230, 100);
-                
-                ctx.fillStyle = 'white';
-                ctx.font = '18px Arial';
-                ctx.fillText('Выездная химчистка автомобилей', 150, 140);
-                
-                // Контактная информация
-                ctx.fillStyle = '#0a291e';
-                ctx.font = 'bold 24px Arial';
-                ctx.fillText('Контакты:', 50, 320);
-                
-                ctx.font = '18px Arial';
-                ctx.fillText('Telegram: @Penekopasen', 50, 370);
-                ctx.fillText('Телефон: 8-901-686-07-68', 50, 410);
-                
-                // QR-код
-                const qrImg = document.querySelector('#qrCodeContainer img');
-                if (qrImg) {
-                    const qrImage = new Image();
-                    qrImage.src = qrImg.src;
-                    qrImage.onload = function() {
-                        ctx.drawImage(qrImage, 200, 500, 200, 200);
-                        
-                        // Сохраняем как изображение
-                        const link = document.createElement('a');
-                        link.download = 'visiting-card-mai-auto.png';
-                        link.href = canvas.toDataURL();
-                        link.click();
-                    };
-                } else {
-                    // Сохраняем как изображение без QR-кода
-                    const link = document.createElement('a');
-                    link.download = 'visiting-card-mai-auto.png';
-                    link.href = canvas.toDataURL();
-                    link.click();
+            return lastCleaning < threeWeeksAgo;
+        }
+
+        function getCarColor(colorName) {
+            const lowerColor = colorName.toLowerCase();
+            for (const [key, value] of Object.entries(colorMap)) {
+                if (lowerColor.includes(key)) {
+                    return value;
                 }
-            });
+            }
+            return '#4F46E5'; // Цвет по умолчанию
+        }
+
+        function getVehicleTypeText(type) {
+            const types = {
+                'sedan': 'Седан, кроссовер',
+                'minibus': 'Микроавтобус, вен',
+                'construction': 'Строительная техника'
+            };
+            return types[type] || type;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU');
+        }
+
+        function formatDateTime(dateTimeString) {
+            const date = new Date(dateTimeString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
             
-            // Поделиться в соцсетях
-            const shareText = 'Май авто - выездная химчистка автомобилей. Профессиональная чистка салона с выездом к вам!';
-            const shareUrl = 'https://tobias-bot.github.io/May-car/';
+            return `${day}-${month}-${year} ${hours}:${minutes}`;
+        }
+
+        function shareToTelegram() {
+            const shareText = 'Май авто - профессиональная химчистка автомобилей с выездом! Заказывайте удобно через приложение.';
+            const shareUrl = window.location.href;
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`, '_blank');
+        }
+
+        function shareToWhatsapp() {
+            const shareText = 'Май авто - профессиональная химчистка автомобилей с выездом! Заказывайте удобно через приложение. ' + window.location.href;
+            window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+        }
+
+        function saveVcardAsImage() {
+            // Создаем canvas для визитки
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 600;
+            canvas.height = 800;
             
-            shareTelegram.addEventListener('click', () => {
-                window.open(`https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`, '_blank');
-            });
+            // Фон
+            ctx.fillStyle = '#2E8B57';
+            ctx.fillRect(0, 0, canvas.width, 300);
             
-            shareWhatsapp.addEventListener('click', () => {
-                window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`, '_blank');
-            });
+            ctx.fillStyle = '#FAFBFC';
+            ctx.fillRect(0, 300, canvas.width, 500);
             
-            // Закрытие модальных окон по клику вне контента
-            window.addEventListener('click', (e) => {
-                if (e.target === vcardModal) {
-                    vcardModal.style.display = 'none';
-                }
-                if (e.target === desktopModal) {
-                    desktopModal.style.display = 'none';
-                }
-            });
-        });
+            // Логотип
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 50px Arial';
+            ctx.fillText('Май', 150, 120);
+            
+            ctx.font = 'bold 40px Marck Script';
+            ctx.fillText('авто', 250, 120);
+            
+            ctx.font = '20px Arial';
+            ctx.fillText('Выездная химчистка автомобилей', 150, 160);
+            
+            // Контактная информация
+            ctx.fillStyle = '#2D3748';
+            ctx.font = 'bold 30px Arial';
+            ctx.fillText('Контакты:', 50, 380);
+            
+            ctx.font = '20px Arial';
+            ctx.fillText('Telegram: @Penekopasen', 50, 430);
+            ctx.fillText('Телефон: 8-901-686-07-68', 50, 470);
+            
+            // Сохраняем как изображение
+            const link = document.createElement('a');
+            link.download = 'visiting-card-mai-auto.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            
+            alert('Визитка сохранена!');
+        }
     </script>
 </body>
 </html>
-
-
-
