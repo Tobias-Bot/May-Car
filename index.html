@@ -361,6 +361,13 @@
             font-size: 2rem;
             color: var(--primary);
             border: 3px solid var(--primary);
+            overflow: hidden;
+        }
+        
+        .about-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         /* My Cars Tab */
@@ -968,6 +975,37 @@
             box-shadow: var(--shadow);
         }
         
+        /* Подсчет стоимости в модальном окне */
+        .price-calculation {
+            background: var(--primary-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .price-breakdown {
+            margin-bottom: 15px;
+        }
+        
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(46, 139, 87, 0.2);
+        }
+        
+        .price-total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 2px solid var(--primary);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
@@ -1069,10 +1107,7 @@
                     
                     <div class="avito-links-top">
                         <a href="https://www.avito.ru/sankt-peterburg/predlozheniya_uslug/himchistka_salona_avtomobilya_s_vyezdom_7735411557" target="_blank" class="avito-link">
-                            <i class="fas fa-external-link-alt"></i> Объявление на Авито
-                        </a>
-                        <a href="https://www.avito.ru/sankt-peterburg/predlozheniya_uslug/himchistka_salona_avtomobilya_s_vyezdom_7735411557" target="_blank" class="avito-link">
-                            <i class="fas fa-star"></i> Отзывы 5★
+                            <i class="fas fa-star"></i> Отзывы на Авито 5★
                         </a>
                         <button class="avito-link" id="vcardBtn">
                             <i class="fas fa-id-card"></i> Визитка
@@ -1226,7 +1261,7 @@
 
                     <div class="about-card">
                         <div class="about-avatar">
-                            <i class="fas fa-user"></i>
+                            <img src="photo.jpg" alt="Владислав">
                         </div>
                         <h3 style="color: var(--primary); margin-bottom: 15px;">Немного обо мне</h3>
                         <p>Здравствуйте! Меня зовут Владислав. Я сам являюсь автовладельцем, и очень люблю, когда мой автомобиль приносит мне комфорт и уют, поэтому слежу за ним должным образом: обслуживаю, регулярно мою и провожу химчистку салона.</p>
@@ -1279,15 +1314,15 @@
                         
                         <div class="service-features">
                             <div class="feature">
-                                <i class="fas fa-1"></i>
+                                <i class="fas fa-arrow-right"></i>
                                 <span>Откройте меню браузера (обычно три точки в правом верхнем углу)</span>
                             </div>
                             <div class="feature">
-                                <i class="fas fa-2"></i>
+                                <i class="fas fa-arrow-right"></i>
                                 <span>Найдите пункт "Добавить на главный экран" или "Установить приложение"</span>
                             </div>
                             <div class="feature">
-                                <i class="fas fa-3"></i>
+                                <i class="fas fa-arrow-right"></i>
                                 <span>Следуйте инструкциям на экране для завершения установки</span>
                             </div>
                         </div>
@@ -1298,15 +1333,15 @@
                         
                         <div class="service-features">
                             <div class="feature">
-                                <i class="fas fa-chrome"></i>
+                                <i class="fab fa-chrome"></i>
                                 <span><strong>Chrome:</strong> Нажмите на значок "Установить" в правой части адресной строки</span>
                             </div>
                             <div class="feature">
-                                <i class="fas fa-firefox"></i>
+                                <i class="fab fa-firefox"></i>
                                 <span><strong>Firefox:</strong> В меню выберите "Страница → Установить сайт как приложение"</span>
                             </div>
                             <div class="feature">
-                                <i class="fas fa-edge"></i>
+                                <i class="fab fa-edge"></i>
                                 <span><strong>Edge:</strong> В меню выберите "Приложения → Установить этот сайт как приложение"</span>
                             </div>
                         </div>
@@ -1380,25 +1415,39 @@
                         <label>Дополнительные опции:</label>
                         <div class="checkbox-group">
                             <div class="checkbox-item">
-                                <input type="checkbox" id="orderTrunk" value="trunk">
+                                <input type="checkbox" id="orderTrunk" value="trunk" data-price="300">
                                 <label for="orderTrunk">Чистка багажника (+300₽)</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="orderCeiling" value="ceiling">
+                                <input type="checkbox" id="orderCeiling" value="ceiling" data-price="200">
                                 <label for="orderCeiling">Чистка потолка (+200₽)</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="orderCarpet" value="carpet">
+                                <input type="checkbox" id="orderCarpet" value="carpet" data-price="400">
                                 <label for="orderCarpet">Мытье ковролина (+400₽)</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="orderFabricSeats" value="fabric_seats">
+                                <input type="checkbox" id="orderFabricSeats" value="fabric_seats" data-price="400">
                                 <label for="orderFabricSeats">Химчистка тканевых сидений (+400₽)</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="orderWindows" value="windows">
+                                <input type="checkbox" id="orderWindows" value="windows" data-price="200">
                                 <label for="orderWindows">Чистка стекол (+200₽)</label>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Подсчет стоимости -->
+                    <div class="price-calculation">
+                        <div class="price-breakdown" id="priceBreakdown">
+                            <div class="price-item">
+                                <span>Базовая стоимость:</span>
+                                <span id="basePrice">1490₽</span>
+                            </div>
+                        </div>
+                        <div class="price-total">
+                            <span>Итого:</span>
+                            <span id="totalPrice">1490₽</span>
                         </div>
                     </div>
                     
@@ -1699,6 +1748,11 @@
                     };
                     reader.readAsDataURL(file);
                 }
+            });
+            
+            // Обновление стоимости при изменении опций
+            document.querySelectorAll('#orderForm input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', updateOrderPrice);
             });
             
             // Закрытие модальных окон по клику вне контента
@@ -2014,6 +2068,39 @@
                 
                 showSuccessMessage('Автомобиль успешно сохранен!');
             }
+        }
+
+        function updateOrderPrice() {
+            let basePrice = 1490;
+            let totalPrice = basePrice;
+            const priceBreakdown = document.getElementById('priceBreakdown');
+            
+            // Очищаем разбивку цен
+            priceBreakdown.innerHTML = `
+                <div class="price-item">
+                    <span>Базовая стоимость:</span>
+                    <span id="basePrice">${basePrice}₽</span>
+                </div>
+            `;
+            
+            // Добавляем выбранные опции
+            document.querySelectorAll('#orderForm input[type="checkbox"]:checked').forEach(checkbox => {
+                const price = parseInt(checkbox.getAttribute('data-price'));
+                const label = checkbox.nextElementSibling.textContent;
+                
+                totalPrice += price;
+                
+                const priceItem = document.createElement('div');
+                priceItem.className = 'price-item';
+                priceItem.innerHTML = `
+                    <span>${label}:</span>
+                    <span>+${price}₽</span>
+                `;
+                priceBreakdown.appendChild(priceItem);
+            });
+            
+            // Обновляем итоговую стоимость
+            document.getElementById('totalPrice').textContent = totalPrice + '₽';
         }
 
         async function submitOrder() {
